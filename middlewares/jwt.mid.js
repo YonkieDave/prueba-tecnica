@@ -6,7 +6,7 @@ module.exports.tokenGeneration = async (data) => {
         console.log("generación del token ", data);
         const result = jwt.sign({ data }, process.env.SECRET_KEY);
         console.log("Token generado", result);
-        return result
+        return result;
             
     } catch (error) {
         console.log('[ tokenGeneration ] [ Error ]', error);

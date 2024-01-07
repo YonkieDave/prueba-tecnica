@@ -1,22 +1,24 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 require('dotenv').config();
+const mongoose = require('mongoose');
+app.use(express.json());
 
-app.use(express.json())
+//Routes
+const routes = require('./routes/auth.routes');
+app.use(routes);
 
-app.use(express.static(__dirname + '/public'));
-app.set('view engine', 'ejs');
-app.set('views', __dirname + '/views');
-
+//Server
 async function serverStart() {
-  try {
-
-    app.listen(process.env.PORT,  () => {
-      console.log(`Sistem start http://${process.env.HOST}:${process.env.PORT}`);
-    });
-  } catch (error) {
-    console.error('[serverStart][Error]', error);
-  }
+    mongoose.connect(process.env.DB_HOST + process.env.DB_DB,
+        ).then(r => {
+        app.listen(process.env.PORT, () => {
+            console.log("Servidor Iniciado en el puerto " + process.env.PORT)
+        })
+    }).catch(error => {
+        console.log(error)
+        console.log("No pude conectar a la base de datos")
+    })
 }
 
 serverStart();
