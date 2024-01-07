@@ -43,12 +43,45 @@ const pointsSchema = new Schema({
     timestamps: true
 });
 
+const orderSchema = new Schema({
+    type: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    route: {
+        pickup:{
+            type: String,
+            required: true
+        },
+        dropoff:{
+            type: String,
+            required: true
+        }
+    },
+    status:{
+        type: String,
+        enum: ['Creada','Validando Orden', 'En Progreso', 'Finalizada']
+    },
+    truck:{
+        type: String,
+        required: true
+    }
+    }, {
+    timestamps: true
+});
+
 const userList = model('users', userSchema);
 const sessions = model('sesiones', sessionSchema);
 const places = model('points', pointsSchema);
+const orders = model('orders', orderSchema);
 
 module.exports = {
     userList,
     sessions,
     places,
+    orders,
 }

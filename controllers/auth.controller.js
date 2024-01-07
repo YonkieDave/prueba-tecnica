@@ -1,5 +1,5 @@
 const users = require('../db/schemas.db');
-const jwt = require('../middlewares/jwt.mid');
+const jwt = require('../middlewares/mid.middleware');
 const sessionController = require('../controllers/sessions.controller');
 
 module.exports.getUser = async(email = null) => {
