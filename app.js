@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 app.use(express.json());
 
 //Routes
-const routes = require('./routes/auth.routes');
+const routes = require('./routes/routes.routes');
 app.use(routes);
 
 //Server

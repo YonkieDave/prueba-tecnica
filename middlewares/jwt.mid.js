@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-
+const sessionSchema = require('../db/schemas.db');
 
 module.exports.tokenGeneration = async (data) => {
     try {
@@ -13,16 +13,32 @@ module.exports.tokenGeneration = async (data) => {
     }
 }
 
-module.exports.tokenVerify = async (token) => {
+module.exports.tokenVerify = async (req,res,next) => {
     try {
-        const result = jwt.verify(token, process.env.SECRET_KEY)
+        const result = jwt.verify(req.headers.jwt, process.env.SECRET_KEY)
         if (result) {
-            return result
+            await validateSession(req.headers.jwt);
+            next();
         } else {
             throw new Error('Invalid Token')
         }        
     } catch (error) {
         console.log('[ tokenVerify ] [ Error ]', error);
+        res.status(400).send(error);
     }
+}
 
+const validateSession = async (token) => {
+    try {
+        const session = await sessionSchema.sessions.find({token: token});
+        console.log('[validateSession][session]', session);
+        if(session.length > 0){
+            return session;
+        }else{
+            throw 'No estas autenticado';
+        }   
+    } catch (error) {
+        console.log('[validateSession][Error]', error);
+        throw error;
+    }
 }

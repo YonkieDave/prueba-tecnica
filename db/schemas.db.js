@@ -26,10 +26,29 @@ const sessionSchema = new Schema({
     timestamps: true
 });
 
+const pointsSchema = new Schema({
+    location: {
+        type: Object,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    placeId: {
+        type: String,
+        required: true
+    }
+}, {
+    timestamps: true
+});
+
 const userList = model('users', userSchema);
 const sessions = model('sesiones', sessionSchema);
+const places = model('points', pointsSchema);
 
 module.exports = {
     userList,
     sessions,
+    places,
 }
