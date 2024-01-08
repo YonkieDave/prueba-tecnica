@@ -68,3 +68,5 @@ DELETE -- localhost:3001/orders/:id
 # REPOSITORIO GIT 
 
 https://github.com/YonkieDave/prueba-tecnica
+
+NOTA : Las colecciones las envio adjuntas al correo. 
